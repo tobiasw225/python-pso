@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/python-pso.iml" filepath="$PROJECT_DIR$/.idea/python-pso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../python_vis/.idea/python_vis.iml" filepath="$PROJECT_DIR$/../python_vis/.idea/python_vis.iml" />
     </modules>
   </component>
 </project>
