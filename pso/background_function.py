@@ -159,4 +159,4 @@ background_function['griewank'] = get_griewank
 background_function['rosenbrock'] = get_rosenbrock
 background_function['eggholder'] = get_eggholder
 background_function['hoelder_table'] = get_hoelder_table
-background_function['eval_styblinsky_tang'] = get_styblinsky_tang
+background_function['styblinsky_tang'] = get_styblinsky_tang

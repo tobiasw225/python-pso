@@ -43,7 +43,7 @@ if __name__ == '__main__':
     n = 10  # ausweitung des feldes
     create_vis = False
     show_error_vis = False
-    num_children = 5
+    num_children = 3
     height = 2 # please don't change
 
     num_particles = num_children ** height + num_children + 1

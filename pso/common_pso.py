@@ -3,7 +3,6 @@ from particle import Particle
 from constants import *
 
 
-
 class PSO:
     class __PSO:
         def __init__(self, num_particles: int=0,

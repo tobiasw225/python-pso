@@ -8,6 +8,8 @@
     <orderEntry type="jdk" jdkName="Python 3.6 (python_unmasking_boosting) (3)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="python_vis" />
+    <orderEntry type="module" module-name="python-genetic" />
+    <orderEntry type="module" module-name="python-aco" />
   </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="Unittests" />

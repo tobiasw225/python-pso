@@ -45,7 +45,7 @@ The visualisation is done like in the PSO class.
 
 
 
-###Relevant literature:
+### Relevant literature:
  
 - James Kennedy and Russell Eberhart. Particle swarm optimization. In IEEE International Conference on Neural Networks (ICNN’95), volume 4, pages 1942–1947, Perth, Western Australia, November-December 1995. IEEE.
 
