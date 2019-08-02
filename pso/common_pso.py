@@ -1,18 +1,20 @@
 import numpy as np
-from particle import Particle
-from constants import *
+import sys
+import operator
+from pso.particle import Particle
+from helper.constants import *
 
 
 class PSO:
     class __PSO:
-        def __init__(self, num_particles: int=0,
-                     dims: int=0,
-                     n: int=0):
+        def __init__(self, num_particles: int = 0,
+                     dims: int = 0,
+                     n: int = 0):
 
             self.num_particles = num_particles
             self.dims = dims
             self.n = n # feldausdehnung
-            self.swarm = [Particle(n, dims) for i in range(num_particles)]
+            self.swarm = [Particle(n, dims) for _ in range(num_particles)]
             self.optimum = 0.0
             self.error_thres = 0.0
             self.best_global_solution = 0.0
@@ -24,40 +26,55 @@ class PSO:
 
             self.func_name = ""
 
+            self.error_rates = []
+            self.evaluations = []
+            self.iteration = 0
+
+        def init_evaluation_array(self, num_runs):
+            """
+                save evaluations for later plotting/ analysis.
+
+            :param num_runs:
+            :return:
+            """
+            self.evaluations = np.zeros((num_runs, self.num_particles, self.dims))
+
+        def add_evaluation(self, array: np.ndarray):
+            """
+                add one iteration
+
+            :param array:
+            :return:
+            """
+            self.iteration += 1
+            self.evaluations[self.iteration, :] = array
+
+
         def set_func_name(self, func_name: str):
             self.func_name = func_name
 
-        def set_global_update_frame(self, start: float=0.4,
-                                    end: float=0.8,
-                                    num_runs: int=0):
+        def set_global_update_frame(self, start: float = 0.4,
+                                    end: float = 0.8,
+                                    num_runs: int = 0):
             """
             first+last iteration of global update
-            :return:
             """
             self.start_global_update = int(start * num_runs)
             self.stop_global_update = int(end * num_runs)
 
-        def get_sd_of_ps(self, swarm: list=[]) -> float:
+        def get_sd_of_ps(self, swarm: list) -> np.ndarray:
             """
 
             :param swarm:
             :return:
             """
+            assert type(swarm) is list
             if len(self.swarm) == 0:
-                return 0.0
-            mean = np.zeros(self.dims)
-            for particle in self.swarm:
-                mean += particle.x
-            mean = mean / len(self.swarm)
-            div = np.zeros(self.dims)
-            for particle in self.swarm:
-                div += (particle.x - mean) ** 2
+                return np.array([0.0])
+            div = np.var([p.x for p in self.swarm])
             return (1 / len(swarm)) * div
 
-        def run_pso(self, target_array: np.ndarray,
-                    create_vis: bool = False,
-                    show_error_vis: bool = True,
-                    show_2dvis: bool = False,
+        def run_pso(self,
                     num_runs: int = 0):
             """
             :param target_array:
@@ -96,15 +113,10 @@ class PSO:
             arguments. For more information about the classes look at 'my_visualisation.py'
 
             """
+            self.init_evaluation_array(num_runs)
             self.ws = np.linspace(0.9, 0.4, num_runs)  # decreasing weights
-
-            if show_error_vis:
-                error_visualiser = ErrorVis(interactive=True,
-                                                         xlim=num_runs, log_scale=True,
-                                                    line_combine=True)
+            # add random speedup -> that's actually not random @todo
             rand_speed_factor = self.dims ** 2
-            check_error_every_n_steps = 1
-
             v_brake = self.n / (self.n / self.n * 2)  # to slow down the swarm
             div_flag = True
             div_tolerance = np.sqrt(self.n * self.dims)  # relativly arbitary
@@ -142,14 +154,14 @@ class PSO:
                     if p_vel_abs < lowest_speed:
                         # don't fall asleep...
                         particle.v *= r
+
                     # slow down particles and multiply for extra rand
-                    if not brake_flag:
-                        pass
-                    else:
-                        for d in range(self.dims):
-                            particle.v[d] = min(max(particle.v[d], -v_brake), v_brake) * r[d]
+                    if brake_flag:
+                        particle.v = np.array([min(max(v, -v_brake),
+                                                   v_brake) for v in particle.v] * r)
+
                     # update highest velocity
-                    if p_vel_abs < np.sum(np.abs(max_vel)):
+                    if np.sum(np.abs(max_vel)) < p_vel_abs :
                         max_vel = particle.v
                     """
                         UPDATE: position
@@ -170,30 +182,25 @@ class PSO:
                     #    swarm[index].x *= swarm[index].v*(-1)*r*ws[i]
 
                     # chaos for velocity.
-                    if not chaos_flag:
-                        pass
-                    else:
+                    if chaos_flag:
                         r1 = np.random.ranf(self.dims)
                         if np.sum(r1) < np.sum(particle.v):
                             particle.v = r1 * particle.v * max_vel ** rand_speed_factor
                             ri = np.random.randint(particle.dims)
-                            # constant factor to keep the chaos realisitic
+                            # constant factor to keep the chaos realistic
                             particle.x[ri] = r1[0] * ((2 * self.n) - self.n) * self.ws[i] * 0.45
                     j += 1
+
                 # append array for later animation
-                if self.dims == 2 and show_2dvis:
-                    target_array[i, :] = array
-                elif self.dims == 3 and create_vis:
-                    target_array[i, :, :] = array
+                self.add_evaluation(array)
+
                 """
                     CHECKS: Are done after every complete iteration.
                 """
                 # calculate diversity of particles
                 # comparison-values are picked rather arbitary
                 div = 0.0
-                if not div_flag:
-                    pass
-                else:
+                if div_flag:
                     # here i would like to have some dynamics - but not at the
                     # beginning
                     if self.start_global_update < i < self.stop_global_update:
@@ -205,19 +212,15 @@ class PSO:
                             chaos_flag = False
                             brake_flag = True
 
-                if i % check_error_every_n_steps == 0 and i > 1 and show_error_vis:
-                    # sometimes i check the error
-                    # i>1 because i need at least some global optimum
-                    error = np.sqrt((self.optimum - self.best_global_solution) ** 2)
-                    error_visualiser.update_with_point(x=i, y=error)
+                self.error_rates.append(np.sqrt((self.optimum - self.best_global_solution) ** 2))
 
                 if i > int(num_runs-(num_runs / 4)) and np.sum(div) < div_tolerance:
                     # stop when it's very low.
-                    print('\nstop at iteration {} of planned {}.'.format(i, num_runs))
+                    print('f\nstop at iteration {i} of planned {num_runs}.')
                     break
 
                 i += 1
-            print("\nbest point ", best_global_point, "with solution %f" % self.best_global_solution)
+            print(f"\nbest point ", best_global_point, "with solution {self.best_global_solution}."  )
             # print('diversity of swarm:\t',np.sum(get_sd_of_ps(swarm)))
 
         """
@@ -251,12 +254,14 @@ class PSO:
             """
             if len(self.num_particles) == 0:
                 # should never happen.
-                return
+                return []
             indices = []
-            for i, particle in zip(range(self.num_particles),self.swarm):
-                if c_particle is not particle:
-                    if self.too_narrow(c_particle, particle, radius):
-                        indices.append(i)
+            for i, particle in zip(range(self.num_particles), self.swarm):
+                if c_particle is particle:
+                    continue
+
+                if self.too_narrow(c_particle, particle, radius):
+                    indices.append(i)
             return indices
 
         def get_n_neighbour_particles(self,
@@ -280,11 +285,9 @@ class PSO:
 
     instance = None
 
-    def __init__(self, num_particles=0,
-                 dims=0,
-                 n=0):
+    def __init__(self, *args, **kwargs):
         if not PSO.instance:
-            PSO.instance = PSO.__PSO(num_particles, dims, n)
+            PSO.instance = PSO.__PSO(*args, **kwargs)
 
     def __getattr__(self, name):
         return getattr(self.instance, name)
@@ -293,6 +296,6 @@ class PSO:
         res = ""
         res += colon_line+"\n"+ half_space_line+"PSO\n"+colon_line+"\n"
         res += "number of particles \t"+str(self.num_particles)+"\n"
-        res += "dims \t"+str(self.dims) +"\n"
-        res += "n\t"+ str(self.n)
+        res += "dims \t"+str(self.dims) + "\n"
+        res += "n\t" + str(self.n)
         return res

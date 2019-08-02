@@ -9,7 +9,7 @@
 # Created by Tobias Wenzel in August 2017
 # Copyright (c) 2017 Tobias Wenzel
 
-from particle import Particle
+from pso.particle import Particle
 
 class Node:
     def __init__(self, parent, level, n=10, dim=2):

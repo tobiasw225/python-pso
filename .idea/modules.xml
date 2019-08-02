@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../python-aco/.idea/python-aco.iml" filepath="$PROJECT_DIR$/../python-aco/.idea/python-aco.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../python-genetic/.idea/python-genetic.iml" filepath="$PROJECT_DIR$/../python-genetic/.idea/python-genetic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../nature_inspired/.idea/nature_inspired.iml" filepath="$PROJECT_DIR$/../nature_inspired/.idea/nature_inspired.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/python-pso.iml" filepath="$PROJECT_DIR$/.idea/python-pso.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../python_vis/.idea/python_vis.iml" filepath="$PROJECT_DIR$/../python_vis/.idea/python_vis.iml" />
     </modules>
   </component>
 </project>

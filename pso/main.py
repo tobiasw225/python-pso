@@ -17,53 +17,46 @@
 # Created by Tobias Wenzel in August 2017
 # Copyright (c) 2017 Tobias Wenzel
 
-import sys
-import pickle
 
-from background_function import *
-sys.path.append('/home/tobias/mygits/python_vis/pso')
-# error+2d vis
+from helper.background_function import *
 from vis.PSOVisualization import Particle_2DVis
 
 from pso.common_pso import PSO
 from pso.hpso import HPSO
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
 
 
 
 
 if __name__ == '__main__':
 
-    num_particles = 13#int(input("num particles") or 13)
-    num_runs = 100#int(input("num runs") or 100)
-    dims = int(input("num dims") or 2)
-    use_hpso = True
+    num_particles = 33
+    num_runs = 100
+    dims = 2
+    use_hpso = False
 
-    show_vis = True
+    show_vis = False
     func_name = 'hoelder_table'
-    n = 10  # ausweitung des feldes
-    create_vis = False
-    show_error_vis = False
-    num_children = 3
-    height = 2 # please don't change
-
-    num_particles = num_children ** height + num_children + 1
-
-    target_array = None
-    if (dims == 3 or dims ==2) and show_vis:
-        target_array = np.zeros((num_runs, num_particles, dims))
+    n = 10
+    show_error_vis = True
 
     if use_hpso:
         hpso = HPSO(num_particles=num_particles,
                     dims=dims,
-                    n=n, num_children=num_children, height=height)
+                    n=n)
         hpso.set_func_name(func_name=func_name)
         print(hpso)
 
-        hpso.run_hpso(target_array, num_runs=num_runs,show_vis=show_vis,
-                      show_error_vis=show_error_vis)
+        hpso.run_hpso(num_runs=num_runs)
+        hpso.print_hpso_best_solutions(hpso.tree.root)
+        errors = hpso.error_rates # actually best solutions
+        evaluation_steps = hpso.evaluations
 
-
-        hpso.get_hpso_best_solutions(hpso.tree.root)
     else:
         pso = PSO(num_particles=num_particles,
                   dims=dims,
@@ -71,21 +64,17 @@ if __name__ == '__main__':
         pso.set_func_name(func_name)
         print(pso)
         pso.set_global_update_frame(start=0.2, end=0.9, num_runs=num_runs)
-        pso.run_pso(target_array=target_array,
-                    create_vis=create_vis, show_error_vis=show_error_vis,
-                    show_2dvis=show_vis, num_runs=num_runs)
+        pso.run_pso(num_runs=num_runs)
+        errors = pso.error_rates
+        evaluation_steps = pso.evaluations
 
-    if show_vis and dims==2:
-        vis2d = Particle_2DVis(n=n, num_runs=num_runs)
-        values, t_m = background_function[func_name]()
-        vis2d.set_data(target_array, values, t_m)
-        vis2d.plot_contours()
-        vis2d.set_point_size(3.5)
-        vis2d.animate()
-    elif create_vis and dims==3:
-        print("write data to file. navigate to 3dvis-script!")
-        with open("/home/tobias/Dokumente/trajectories3d", 'wb') as fout:
-             pickle.dump(target_array, fout)
+    if show_error_vis:
+        df = pd.DataFrame(list(zip(np.arange(len(errors)), errors)), columns=['error','iteration'])
+        sns.lineplot(x="iteration", y="error", data=df)
+        plt.show()
 
-    #create_video(source_path="/home/tobias/Bilder/pso/*.pdf", frame_rate=4,
-    #             output_file="/home/tobias/Bilder/pso/pso.mp4", pdf=True, num_runs=num_runs)
+    if show_vis:
+        vis = Particle_2DVis(n=n, num_runs=num_runs)
+        values, t_m = generate_2d_background(func_name, n)
+        vis.set_data(evaluation_steps, values, t_m)
+        vis.animate()

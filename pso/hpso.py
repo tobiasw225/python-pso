@@ -1,8 +1,9 @@
 
 import numpy as np
 from pso.common_pso import PSO
-from tree import *
-from constants import *
+from pso.tree import *
+from helper.constants import *
+from pso.particle import Particle
 
 
 class HPSO(PSO):
@@ -10,15 +11,17 @@ class HPSO(PSO):
         def __init__(self,
                      num_particles: int = 0,
                      dims: int = 0,
-                     n: int = 0,
-                     num_children: int = 3,
-                     height: int = 3):
-
+                     n: int = 0):
+            height = 3
             self.num_leafs = num_particles
+            # calculate the number of children needed, if height= 3
+            num_children = int(np.floor(-1/2 + np.sqrt(1/4+(num_particles-1))))
+
             super().__init__(num_particles=num_particles,
                            dims=dims, n=n)
             self.tree = Tree(num_children=num_children,
-                             height=height, num_leafs=self.num_leafs,
+                             height=height,
+                             num_leafs=self.num_leafs,
                              n=n, dims=dims)
             self.max_weigth = 0.729
             self.min_weigth = 0.4
@@ -128,7 +131,7 @@ class HPSO(PSO):
             :return:
             """
             array[0] = self.tree.root.particle.x
-            i=1
+            i = 1
             for local_best in self.tree.root.children:
                 array[i] = local_best.particle.x
                 i += 1
@@ -162,20 +165,10 @@ class HPSO(PSO):
             """
             array = []
             self.get_array_of_tree(self.tree.root, array)
-            mean = np.zeros(self.dims)
-            for bs in array:
-                mean += bs
-            mean = mean / self.num_leafs
-            div = np.zeros(self.dims)
-            for bs in array:
-                div += (bs - mean) ** 2
-            return (1 / self.num_leafs) * div
+            return (1 / self.num_leafs) * np.var(array)
 
         def run_hpso(self,
-                     target_array: np.ndarray,
-                     show_vis: bool=False,
-                     show_error_vis: bool=True,
-                     num_runs: int=100):
+                     num_runs: int = 100):
             """
             This is a basic implementation of the H-PSO-Algorithm. It's derived from PSO
             and has a tree-object. I figure this can be done way more elegantly, but then again:
@@ -197,41 +190,33 @@ class HPSO(PSO):
 
             So far there is no implementation of PH-PSO. A first try can be found in update_hpso.
             The visualisation is done like in the PSO class.
-            :param target_array:
-            :param show_vis:
-            :param show_error_vis:
+
             :param num_runs:
             :return:
             """
+            self.init_evaluation_array(num_runs)
+
             div_tolerance = np.sqrt(self.n * self.dims)**2
-            interactive= True
-            if show_error_vis:
-                results = np.zeros((num_runs, 1))
-                error_visualiser = ErrorVis(interactive=interactive, offset=0,
-                                            xlim=num_runs, log_scale=True,
-                                            line_combine=True, sexify=False)
 
             for i in range(num_runs):
                 self.pers_best_recursive_update(self.tree.root)
                 self.tree.swap_top_down_breadth_first(self.tree.root)
                 self.update_lbest_recursive(self.tree.root)  # vHPSO
-                if self.dims == 2 and show_vis:
-                    array = np.zeros((self.num_particles, self.dims))
-                    self.get_points_of_tree_particles(array)
-                    target_array[i, :] = array
-                if show_error_vis:
-                    error_visualiser.update_with_point(x=i, y=self.tree.root.particle.best_solution)
-                    results[i] = self.tree.root.particle.best_solution
+
+                array = np.zeros((self.num_particles, self.dims))
+                self.get_points_of_tree_particles(array)
+                self.add_evaluation(array)
+
+                self.error_rates.append(self.tree.root.particle.best_solution)
+
                 if i > int(num_runs-(num_runs / 2)):
                     div = self.get_sd()
                     if np.sum(div) < div_tolerance:
                         # stop when it's very low.
-                        print('\nstop at iteration {} of planned {}.'.format(i, num_runs))
+                        print(f'\nstop at iteration {i} of planned {num_runs}.')
                         break
-            if show_error_vis and not interactive:
-                error_visualiser.plot_my_data(range(0, num_runs), results)
 
-        def get_hpso_best_solutions(self, node: Node):
+        def print_hpso_best_solutions(self, node: Node):
             """
             :param: node
             :return:
@@ -240,19 +225,18 @@ class HPSO(PSO):
                 points = node.level*'\t'
                 print("\t"+points+str(node.particle.best_solution))
                 for child in node.children:
-                    self.get_hpso_best_solutions(child)
+                    self.print_hpso_best_solutions(child)
 
     instance = None
 
     def __init__(self,
                  num_particles=0,
                  dims=0,
-                 n=0,
-                 num_children=3,
-                 height=3):
+                 n=0):
+        super().__init__(num_particles=num_particles, dims=dims, n=n)
         if not HPSO.instance:
             HPSO.instance = HPSO.__HPSO(num_particles,
-                                        dims, n, num_children, height)
+                                        dims, n)
 
     def __getattr__(self, name):
         return getattr(self.instance, name)

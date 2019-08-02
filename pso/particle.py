@@ -4,14 +4,12 @@ import numpy as np
 
 class Particle:
     def __init__(self, n: int, dims: int):
-        self.n = n
-        self.x = np.zeros(dims)
-        for i in range(dims):
-            self.x[i] = 2 * n * np.random.random() - n
+        self.x = 2 * n * np.random.ranf(dims) -n
         self.v = np.random.random(dims)*n+1# ensure particle starts
         self.best_solution = sys.maxsize
         self.best_point = np.zeros(dims)
         self.dims = dims
+
         # better: class-func
         self.evalfunc_dicct = {}
         self.evalfunc_dicct['square'] = self.eval_square
