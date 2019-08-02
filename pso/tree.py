@@ -14,8 +14,9 @@ from pso.particle import Particle
 class Node:
     def __init__(self, parent, level, n=10, dim=2):
         """
-        Simple Implementation of a Tree Node. The Nodes are supposed
-        to stay at their level, only the particle is exchanged for simplicity.
+            Simple Implementation of a Tree Node. The Nodes are supposed
+            to stay at their level, only the particle is exchanged for simplicity.
+
         :param data:
         :param parent:
         :param level:
@@ -31,8 +32,9 @@ class Node:
 class Tree:
     def __init__(self, num_children=0, height=0, n=0, dims=0, num_leafs=0):
         """
-        Implementation of a tree for HPSO. Contains methods for
-        inserting and creating nodes and swapping the particles.
+            Implementation of a tree for HPSO. Contains methods for
+            inserting and creating nodes and swapping the particles.
+
         :param num_children:
         :param height:
         :param n:
@@ -79,12 +81,8 @@ class Tree:
             try:
                 child = node.children[i]
                 if child.particle.best_solution <= temp.best_solution:
-                    #node, child = child, node
-                    # -> will ich nicht, da level ja gleich bleiben!
-
                     node.particle = child.particle
                     child.particle = temp
-
                     temp = node.particle
 
             except IndexError:
@@ -92,7 +90,6 @@ class Tree:
 
     def swap_top_down_breadth_first(self, node):
         """
-        hier wird dann getauscht.
         :return:
         """
         if node:
@@ -105,6 +102,7 @@ class Tree:
         die insert-methode dient nur dem zufälligem
         Aufbau des Baums. Das heißt hier braucht noch __nichts sortiert__!
         werden.
+
         :param node:
         :param data:
         :return:
@@ -133,45 +131,4 @@ class Tree:
         else:
             return False
 
-    def get_split_trees(self, node):
-        """
-        should be recursive, not finished!
-        :param node:
-        :return:
-        """
-        print("@todo")
-        return
-        tree = Tree(num_children=self.num_children, height=self.height)
-        tree.insert(node)
-        for child in node.children:
-            tree.insert(child)
 
-
-def main():
-    ## H-PSO wie PSO und nach Zeit wird getauscht?
-    ## ansonsten würde ich doch bei jeder Verbesserung tauschen, oder?
-    ##
-    root = None
-    num_children =3
-    height = 2
-    tree = Tree(num_children=num_children, height=height, n=10, dims=2)
-    num_leafs = num_children**height + num_children+1
-
-    random_values = np.random.rand(num_leafs)
-    root = tree.insert(root, random_values[0])
-
-    for i in range(1, len(random_values)):
-        tree.insert(root, random_values[i])
-
-    root = tree.swap_top_down_breadth_first(root)
-
-    print('gb', root.data)
-    for child in root.children:
-        print('\tlb', child.data)
-        for grand_child in child.children:
-            print('\t\t',grand_child.data)
-            for fuck in grand_child.children:
-                print('\t\t\t',fuck.data)
-
-if __name__ == '__main__':
-    main()

@@ -27,27 +27,7 @@ class HPSO(PSO):
             self.min_weigth = 0.4
             self.set_level_weights(self.tree.root, method="decr")
 
-        def update_ph_pso(self, node: Node):
-            """"
-            ph-pso: reset leafs, randomize local-best
-            in this step, the tree is "one"
-            """
 
-            if node:
-                if node.level <= 1:
-                    pass
-                elif node.level == 2:
-                    r = np.random.ranf(self.tree.dims)
-                    # 're-randomizing', could be not enough.
-                    node.particle.x *= 0.479* r
-                elif node.level == 3:
-                    node.particle = Particle(n=self.tree.n,
-                                             dims=self.tree.dims)
-                else:
-                    return
-                    print("level to high for ph-pso test")
-                for child in node.children:
-                    self.update_ph_pso(child, method)
 
         def set_level_weights(self,
                               node: Node,
@@ -226,6 +206,27 @@ class HPSO(PSO):
                 print("\t"+points+str(node.particle.best_solution))
                 for child in node.children:
                     self.print_hpso_best_solutions(child)
+
+        def update_ph_pso(self, node: Node):
+            """"
+            ph-pso: reset leafs, randomize local-best
+            in this step, the tree is "one"
+            """
+
+            if node:
+                if node.level <= 1:
+                    pass
+                elif node.level == 2:
+                    r = np.random.ranf(self.tree.dims)
+                    # 're-randomizing', could be not enough.
+                    node.particle.x *= 0.479 * r
+                elif node.level == 3:
+                    node.particle = Particle(n=self.tree.n,
+                                             dims=self.tree.dims)
+                else:
+                    return
+                for child in node.children:
+                    self.update_ph_pso(child)
 
     instance = None
 

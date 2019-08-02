@@ -1,13 +1,21 @@
 # python-pso
 
+Implementations of the Particle Swarm Optimizer (PSO). This set of algorithms aims to mimic a swarm of particles. It can also be thought of as a swarm of animals. Each particle evaluates a given function and moves with respect to the global and personal minimum/maximum. Thus, this algorithm behaves similar to genetic algorithms.
 
+## Getting Started
 
-## PSO
+Depending on your capabilities and interests you have different options from here:
+
++ Read some [papers](###-Relevant-literature) and dive into the concepts of PSO and H-PSO.
++ Skim over the summaries of [PSO](##PSO) or/ and  [H-PSO](##H-PSO) and have a look at the implementations. Feel free to comment ;)
++ Navigate to the [PSO Tutorial](pso/pso.ipynb). I prepared a Jupyter Notebook to illustrate a simple and more efficient version of the algorithm. You should be rather familiar with numpy to understand the code.
+
+##PSO
 
 This is a common implementation of the PSO, only with some
 extensions. Meaning the algorithm runs a set number of iterations or
 if the sd of the swarm is less than a predefined value (this is relatively
-arbitrary, in this case the square root of the product(self.n * self.dims),
+arbitrary, in this case the square root of the product(n * dims),
 which seemed to be a reasonable idea).
 
 Every iteration consists mainly of two steps: 
@@ -32,7 +40,7 @@ The visualisation objects have to be initialized in a main method and passed as
 arguments. For more information about the classes look at 'my_visualisation.py'
 
 
-## H-PSO
+##H-PSO
 
 This is a basic implementation of the H-PSO-Algorithm. It's derived from PSO and has a tree-object. I figure this can be done way more elegantly, but then again, it's just for illustration. Most of the main-functions are called in recursive fashion. Since the tree-height shouldn't exceed 2 or max 3 levels, this can be implemented otherwise (not recursive).
 
@@ -45,7 +53,7 @@ The visualisation is done like in the PSO class.
 
 
 
-### Relevant literature:
+### Relevant literature
  
 - James Kennedy and Russell Eberhart. Particle swarm optimization. In IEEE International Conference on Neural Networks (ICNN’95), volume 4, pages 1942–1947, Perth, Western Australia, November-December 1995. IEEE.
 
