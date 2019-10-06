@@ -3,6 +3,7 @@ import sys
 import operator
 from pso.particle import Particle
 from helper.constants import *
+from helper.eval_funcs import eval_function
 
 
 class PSO:
@@ -49,9 +50,10 @@ class PSO:
             self.iteration += 1
             self.evaluations[self.iteration, :] = array
 
-
-        def set_func_name(self, func_name: str):
+        def set_eval_function(self, func_name: str):
+            assert func_name in eval_function
             self.func_name = func_name
+            self.func = eval_function[func_name]
 
         def set_global_update_frame(self, start: float = 0.4,
                                     end: float = 0.8,
@@ -132,7 +134,7 @@ class PSO:
                 array = np.zeros((len(self.swarm), self.dims))
                 j = 0
                 for particle in self.swarm:
-                    f_n = particle.evalfunc_dicct[self.func_name]()
+                    f_n = self.func(particle.x)
                     # update particles + global solution
                     if f_n < particle.best_solution:
                         particle.best_solution = f_n

@@ -1,100 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/pso/main.py" line="32" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="dca7a46b-2b43-4843-92fb-3c06085198b3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python-genetic/genetic/background_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python-genetic/genetic/background_function.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python-genetic/genetic/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python-genetic/genetic/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python-aco/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../python-aco/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/python-pso.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/python-pso.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/background_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper/background_function.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/eval_funcs.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper/eval_funcs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/hpso.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/pso.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pso/common_pso.py" beforeDir="false" afterPath="$PROJECT_DIR$/pso/common_pso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pso/hpso.py" beforeDir="false" afterPath="$PROJECT_DIR$/pso/hpso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pso/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/pso/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pso/particle.py" beforeDir="false" afterPath="$PROJECT_DIR$/pso/particle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pso/pso_np.py" beforeDir="false" afterPath="$PROJECT_DIR$/pso/pso_np.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vis/PSOVisualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/vis/PSOVisualization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vis/ScatterVisualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/vis/ScatterVisualizer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="2009507790">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="18" />
-          <entry key="project.open.time.0" value="2" />
-          <entry key="project.open.time.1" value="2" />
-          <entry key="project.open.time.15" value="1" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.7" value="3" />
-          <entry key="project.open.time.8" value="8" />
-          <entry key="project.open.time.9" value="4" />
-          <entry key="project.opened" value="21" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="Python Console" value="231" />
-          <entry key="dummy" value="37" />
-          <entry key="py" value="6390" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PLAIN_TEXT" value="37" />
-          <entry key="Python" value="6621" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="md" value="5" />
-          <entry key="py" value="67" />
-          <entry key="tsp" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Markdown" value="5" />
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="67" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../nature_inspired/genetic/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#12#59#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../nature_inspired/aco/paco.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2616">
-              <caret line="114" column="27" selection-start-line="114" selection-start-column="27" selection-end-line="114" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../nature_inspired/vis/Path2dVis.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="768">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -103,86 +32,10 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>chaos</find>
-      <find>random</find>
-      <find>ch</find>
-      <find>color</find>
-      <find>run</find>
-      <find>particl</find>
-      <find>sexi</find>
-      <find>Que</find>
-      <find>path2</find>
-      <find>min</find>
-      <find>div</find>
-      <find>rand</find>
-      <find>sch</find>
-      <find>rast</find>
-      <find>sty</find>
-      <find>flip</find>
-      <find>schaff</find>
-      <find>lam</find>
-      <find>egg</find>
-      <find>rosen</find>
-      <find>pri</find>
-      <find>print</find>
-      <find>values</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>x_values</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../python-aco" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/pso/__init__.py" />
-        <option value="$PROJECT_DIR$/pso/vis3d.py" />
-        <option value="$PROJECT_DIR$/pso/tree.py" />
-        <option value="$PROJECT_DIR$/pso/constants.py" />
-        <option value="$PROJECT_DIR$/pso/herzblatt.py" />
-        <option value="$PROJECT_DIR$/pso/particle.py" />
-        <option value="$PROJECT_DIR$/pso/pso.py" />
-        <option value="$PROJECT_DIR$/pso/background_fn.py" />
-        <option value="$PROJECT_DIR$/vis.py" />
-        <option value="$PROJECT_DIR$/../python_vis/python_vis/ScatterVisualizer.py" />
-        <option value="$PROJECT_DIR$/vis/ScatterVisualizer.py" />
-        <option value="$PROJECT_DIR$/vis/PSOVisualization.py" />
-        <option value="$PROJECT_DIR$/pso/hpso.py" />
-        <option value="$PROJECT_DIR$/../python-aco/src/ant.py" />
-        <option value="$PROJECT_DIR$/../python-aco/src/my_ant.py" />
-        <option value="$PROJECT_DIR$/../python-aco/aco/aco.py" />
-        <option value="$PROJECT_DIR$/../python-aco/aco/my_ant.py" />
-        <option value="$PROJECT_DIR$/../python-aco/aco/common_aco.py" />
-        <option value="$PROJECT_DIR$/../python-aco/aco/paco.py" />
-        <option value="$PROJECT_DIR$/../python-aco/vis/ErrorVis.py" />
-        <option value="$PROJECT_DIR$/../python-aco/vis/Path2dVis.py" />
-        <option value="$PROJECT_DIR$/../python-aco/aco/main.py" />
-        <option value="$PROJECT_DIR$/../python-genetic/genetic/genetic_algorithm.py" />
-        <option value="$PROJECT_DIR$/pso/background_function.py" />
-        <option value="$PROJECT_DIR$/pso/common_pso.py" />
-        <option value="$PROJECT_DIR$/pso/main.py" />
-        <option value="$PROJECT_DIR$/pso/main.py" />
-        <option value="$PROJECT_DIR$/../python-genetic/genetic/ga.py" />
-        <option value="$PROJECT_DIR$/../python-genetic/genetic/background_function.py" />
-        <option value="$PROJECT_DIR$/../python-genetic/genetic/main.py" />
-        <option value="$PROJECT_DIR$/../nature_inspired/genetic/main.py" />
-        <option value="$PROJECT_DIR$/../nature_inspired/pso/main.py" />
-        <option value="$PROJECT_DIR$/../nature_inspired/vis/ErrorVis.py" />
-        <option value="$PROJECT_DIR$/../nature_inspired/vis/Path2dVis.py" />
-        <option value="$PROJECT_DIR$/../nature_inspired/aco/paco.py" />
-        <option value="$PROJECT_DIR$/../nature_inspired/aco/main.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-3" />
-    <option name="width" value="1286" />
-    <option name="height" value="1027" />
-  </component>
+  <component name="ProjectId" id="1RTTp77WYdkmkr0R04jvH1iDVZe" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -201,28 +54,10 @@
     </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="python-pso" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nature_inspired" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../spielwiese" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pyenvs/machine_learning" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -249,41 +84,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main (1)">
-    <configuration name="ga" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="python-genetic" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../python-genetic/genetic" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../python-genetic/genetic/ga.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.pso_np">
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="nature_inspired" />
+      <module name="python-pso" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../nature_inspired/aco" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pso" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../nature_inspired/aco/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pso/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -292,16 +106,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="nature_inspired" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../pyenvs/machine_learning/bin/python" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../nature_inspired/genetic" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../nature_inspired/genetic/main.py" />
@@ -313,19 +127,19 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main (3)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="nature_inspired" />
+    <configuration name="pso_np" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="python-pso" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../nature_inspired/pso" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pso" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../nature_inspired/pso/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pso/pso_np.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -348,18 +162,11 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Python.ga" />
-      <item itemvalue="Python.main (2)" />
-      <item itemvalue="Python.main (3)" />
-      <item itemvalue="Python.main (1)" />
-    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.pso_np" />
         <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.main (3)" />
-        <item itemvalue="Python.main (2)" />
-        <item itemvalue="Python.ga" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -385,363 +192,23 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-3" y="0" width="1372" height="731" extended-state="6" />
-    <layout>
-      <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.23603871" />
-      <window_info id="Structure" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.5003723" side_tool="true" weight="0.32396695" />
-      <window_info anchor="bottom" id="Version Control" order="1" weight="0.3289256" />
-      <window_info anchor="bottom" id="Python Console" order="2" weight="0.3289256" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.3272727" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.3289256" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.4996277" weight="0.4016529" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.3983471" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="10" weight="0.3289256" />
-      <window_info anchor="right" id="Data View" order="0" />
-      <window_info anchor="right" id="Commander" order="1" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.23603871" />
-      <window_info id="Structure" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.5003723" side_tool="true" weight="0.32396695" />
-      <window_info anchor="bottom" id="Version Control" order="1" weight="0.3289256" />
-      <window_info anchor="bottom" id="Python Console" order="2" weight="0.3289256" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.3272727" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.3289256" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.4996277" visible="true" weight="0.4016529" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.3983471" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="10" weight="0.3289256" />
-      <window_info anchor="right" id="Data View" order="0" />
-      <window_info anchor="right" id="Commander" order="1" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-    </layout-to-restore>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/pso" />
+      <path value="$PROJECT_DIR$/../nadatabase" />
     </ignored-roots>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pso/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/pso/vis3d.py" />
-    <entry file="file://$PROJECT_DIR$/pso/constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pso/tree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python_vis/python_vis/miniapps/optimzer_gui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python_vis/python_vis/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python_vis/python_vis/aco/ACOVisualization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vis.py" />
-    <entry file="file://$PROJECT_DIR$/vis/ErrorVis.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python_vis/python_vis/pso/PSOVisualization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python_vis/pso/my_visualisation.py" />
-    <entry file="file://$PROJECT_DIR$/vis/PSOVisualization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-genetic/vis/ErrorVis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vis/ScatterVisualizer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="39" selection-start-line="39" selection-end-line="40" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python_vis/python_vis/ScatterVisualizer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="21" column="24" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-aco/aco/paco.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3096">
-          <caret line="134" column="18" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-aco/aco/constants.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-aco/aco/ant.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-aco/vis/ErrorVis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-aco/vis/Path2dVis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="68" column="43" lean-forward="true" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-aco/aco/common_aco.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="229" selection-start-line="229" selection-end-line="229" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python_vis/src/my_visualisation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="18" column="10" selection-start-line="18" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-aco/aco/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-genetic/genetic/genetic_algorithm.py" />
-    <entry file="file://$PROJECT_DIR$/../python-genetic/genetic/particle.py" />
-    <entry file="file://$PROJECT_DIR$/pso/background_function.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="148" column="4" selection-start-line="148" selection-start-column="4" selection-end-line="148" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pso/common_pso.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pso/hpso.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pso/particle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pso/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="57" column="66" lean-forward="true" selection-start-line="57" selection-start-column="66" selection-end-line="57" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-genetic/vis/PSOVisualization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-genetic/genetic/ga.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4296">
-          <caret line="182" column="12" selection-start-line="182" selection-start-column="12" selection-end-line="182" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-genetic/genetic/background_function.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/genetic/ga.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-genetic/genetic/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-genetic/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-genetic/pso/hpso.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/res/gr17.tsp">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/aco/ant.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/aco/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../python-aco/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="168">
-            <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/genetic/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/pso/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/pso/hpso.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/pso/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/vis/ErrorVis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/aco/tsp_parser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/aco/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/genetic/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#12#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/aco/paco.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2616">
-          <caret line="114" column="27" selection-start-line="114" selection-start-column="27" selection-end-line="114" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../nature_inspired/vis/Path2dVis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

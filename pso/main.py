@@ -19,7 +19,7 @@
 
 
 from helper.background_function import *
-from vis.PSOVisualization import Particle_2DVis
+from vis.PSOVisualization import Particle2DVis
 
 from pso.common_pso import PSO
 from pso.hpso import HPSO
@@ -38,18 +38,18 @@ if __name__ == '__main__':
     num_particles = 33
     num_runs = 100
     dims = 2
-    use_hpso = False
+    use_hpso = True
 
-    show_vis = False
-    func_name = 'hoelder_table'
+    show_vis = True
+    func_name = 'rastrigin'
     n = 10
-    show_error_vis = True
+    show_error_vis = False
 
     if use_hpso:
         hpso = HPSO(num_particles=num_particles,
                     dims=dims,
                     n=n)
-        hpso.set_func_name(func_name=func_name)
+        hpso.set_eval_function(func_name=func_name)
         print(hpso)
 
         hpso.run_hpso(num_runs=num_runs)
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         pso = PSO(num_particles=num_particles,
                   dims=dims,
                   n=n)
-        pso.set_func_name(func_name)
+        pso.set_eval_function(func_name)
         print(pso)
         pso.set_global_update_frame(start=0.2, end=0.9, num_runs=num_runs)
         pso.run_pso(num_runs=num_runs)
@@ -74,7 +74,14 @@ if __name__ == '__main__':
         plt.show()
 
     if show_vis:
-        vis = Particle_2DVis(n=n, num_runs=num_runs)
-        values, t_m = generate_2d_background(func_name, n)
-        vis.set_data(evaluation_steps, values, t_m)
-        vis.animate()
+        vis = Particle2DVis(n=n, num_runs=num_runs)
+        _, background_function = generate_2d_background(func_name, n)
+        vis.set_background_function(background_function)
+
+        import time
+
+        for i in range(num_runs):
+            # not stopping ?
+            vis.animate(solution=evaluation_steps[i, :])
+            time.sleep(.05)
+

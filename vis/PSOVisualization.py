@@ -4,72 +4,58 @@ import time
 
 from vis.ScatterVisualizer import ScatterVisualizer
 
-class Particle_2DVis(ScatterVisualizer):
 
-    class __Particle_2DVis(ScatterVisualizer):
+class Particle2DVis(ScatterVisualizer):
+
+    def __init__(self, n: float, num_runs: int, interactive: bool = True,
+                 x_limit: float = 0.0, y_limit: float = 0.0,
+                 offset: float = 0.0, colour_bar: bool = True):
         """
-        scatter-plot with points -> pso
+
+        :param n:
+        :param num_runs:
+        :param interactive:
+        :param xlim:
+        :param ylim:
+        :param offset:
+        :param colour_bar:
         """
-        def __init__(self, n, num_runs, interactive=False,
-                     xlim=0 ,ylim=0, offset=0, colour_bar=True):
-            super().__init__(interactive=interactive, xlim=xlim,
-                             ylim=ylim, offset=offset, log_scale=False,
-                             sexify=False)
-            self.set_yx_lim([-n, n], [-n, n])
-            self.num_runs = num_runs
-            self.sleep_interval = .01
-            self.colour_bar = colour_bar
+        super().__init__(interactive=interactive, xlim=x_limit,
+                         ylim=y_limit, offset=offset, log_scale=False)
+        self.set_yx_lim([-n, n], [-n, n])
+        self.num_runs = num_runs
+        self.colour_bar = colour_bar
+        self.colour_bar_set = False
+        self.eval_steps = None
+        self.bg_function = None
 
-        def set_point_size(self, point_size=2.5):
-            self.my_plot.set_sizes([point_size] * len(self.target_array))
+    def set_background_function(self, background_function):
+        """
 
-        def set_data(self, target_array, vals, t_m):
-            """
+        :param background_function:
+        :return:
+        """
+        self.bg_function = background_function
 
-            :param target_array:
-            :param vals:
-            :param t_m:
-            :return:
-            """
-            self.target_array = target_array
-            self.vals = vals
-            self.t_m = t_m
-            self.set_point_size()
+    def animate(self, solution):
+        """
 
-        def plot_contours(self):
-            """
+        :param solution:
+        :return:
+        """
+        plt.imshow(self.bg_function, extent=[-self.bg_function.shape[1] / 2.,
+                                             self.bg_function.shape[1] / 2.,
+                                             -self.bg_function.shape[0] / 2.,
+                                             self.bg_function.shape[0] / 2.],
+                   cmap='viridis')
 
-            :return:
-            """
-            if len(self.vals ) >1 and len(self.t_m ) >1:
-                CS = plt.contour(self.vals, self.vals, self.t_m, colors='black')
-                plt.clabel(CS, inline=1, fontsize=6)
+        if self.colour_bar and not self.colour_bar_set:
+            plt.colorbar()
+            point_size = 2.5
+            self.my_plot.set_sizes([point_size] * len(solution))
+            self.colour_bar_set = True
 
-        def animate(self):
-            """
+        self.my_plot.set_offsets(solution)
+        self.fig.canvas.draw()
 
-            :return:
-            """
-            plt.imshow(self.t_m, extent=[-self.t_m.shape[1] / 2., self.t_m.shape[1] / 2.,
-                                         -self.t_m.shape[0] / 2., self.t_m.shape[0] / 2.],
-                       cmap='viridis')
-            if self.colour_bar:
-                plt.colorbar()
-            i = 0
-            while i < self.num_runs:
-                self.my_plot.set_offsets(self.target_array[i, :])
-                self.fig.canvas.draw()
-                time.sleep(self.sleep_interval)
-                i += 1
-
-    instance = None
-
-    def __init__(self, n, num_runs, interactive=True, xlim=0,ylim=0, offset=0, colour_bar=True):
-        if not Particle_2DVis.instance:
-            Particle_2DVis.instance = Particle_2DVis.__Particle_2DVis(n=n, num_runs=num_runs,
-                                                                   interactive=interactive,
-                                                                   xlim=xlim,ylim=ylim, colour_bar=colour_bar,
-                                                                   offset=offset)
-    def __getattr__(self, name):
-        return getattr(self.instance, name)
 

@@ -40,9 +40,11 @@ def get_rastrigin(x: np.ndarray,
     m_size = len(x)
     for i in range(m_size):
         for j in range(m_size):
-            y[i, j]= (x[i] ** 2 - 10 * np.cos(np.pi * x[i]) + 10) \
-                     + (x[j] ** 2 - 10 * np.cos(np.pi * x[j]) + 10)
+            y[i, j] = (x[i] ** 2 - 10 * np.cos(np.pi * x[i]) + 10) \
+                      + (x[j] ** 2 - 10 * np.cos(np.pi * x[j]) + 10)
     return x, y
+
+
 
 
 def get_rosenbrock(x: np.ndarray,
@@ -164,7 +166,7 @@ def generate_2d_background(func_name: str, n: int):
     :return:
     """
     m_size = 2*n
-    bg_fn = np.zeros((m_size,m_size))
+    bg_fn = np.zeros((m_size, m_size))
     vals = np.linspace(-n, n, m_size)
     print(f"background-function: {func_name}")
     return background_function[func_name](vals, bg_fn)
