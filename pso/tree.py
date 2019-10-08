@@ -4,7 +4,7 @@
 #
 # __remark__:
 #
-# __todos__: hpso
+# __todos__:
 #
 # Created by Tobias Wenzel in August 2017
 # Copyright (c) 2017 Tobias Wenzel
@@ -30,7 +30,12 @@ class Node:
 
 
 class Tree:
-    def __init__(self, num_children=0, height=0, n=0, dims=0, num_leafs=0):
+    def __init__(self,
+                 num_children: int,
+                 height: int,
+                 n: int,
+                 dims: int,
+                 num_leafs: int):
         """
             Implementation of a tree for HPSO. Contains methods for
             inserting and creating nodes and swapping the particles.
@@ -47,8 +52,7 @@ class Tree:
         self.n = n
         self.dims = dims
         self.root = None
-        if dims and n:
-            self.make_hpso_tree()
+        self.make_hpso_tree()
 
     def create_node(self, parent, level):
         """
@@ -131,4 +135,22 @@ class Tree:
         else:
             return False
 
+    def points_of_tree_particles(self, array):
+        """
+        similar to get_array_of_tree, but not recursive and limited
+        in respect to the height of the tree. this only returns the
+        points, not the velocity, best solutions etc. for visualisation.
 
+        :return:
+        """
+        array[0] = self.root.particle.x
+        i = 1
+        for local_best in self.root.children:
+            array[i] = local_best.particle.x
+            i += 1
+            for sub_local in local_best.children:
+                array[i] = sub_local.particle.x
+                i += 1
+                for leaf in sub_local.children:
+                    array[i] = leaf.particle.x
+                    i += 1

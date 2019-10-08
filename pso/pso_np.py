@@ -1,7 +1,13 @@
-"""
-    functions below are just for testing.
-
-"""
+# __filename__: pso_np.py
+#
+# __description__: other variations of pso.
+#
+# __remark__:
+#
+# __todos__:
+#
+# Created by Tobias Wenzel in Summer 2019
+# Copyright (c) 2019 Tobias Wenzel
 
 
 import numpy as np
@@ -291,7 +297,6 @@ if __name__ == '__main__':
 
     offset = np.array([0., 0.])
     for solution in pso.run():
-    #for i in range(100):
         #vis.animate(solution=solution.x)
         vis.animate(solution=np.zeros(2))
         time.sleep(.01)

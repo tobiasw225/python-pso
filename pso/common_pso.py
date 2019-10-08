@@ -1,9 +1,34 @@
+# __filename__: common_pso.py
+#
+# __description__: methods for pso
+#
+# __remark__:
+#
+# __todos__:
+#
+# Created by Tobias Wenzel in ~ August 2017
+# Copyright (c) 2017 Tobias Wenzel
+
+
 import numpy as np
 import sys
-import operator
 from pso.particle import Particle
 from helper.constants import *
 from helper.eval_funcs import eval_function
+
+
+def swarm_sd(swarm: list) -> np.ndarray:
+    """
+
+    :param swarm:
+    :return:
+    """
+    assert type(swarm) is list
+    assert type(swarm[0]) is Particle
+    if len(swarm) == 0:
+        return np.array([0.0])
+    div = np.var([p.x for p in swarm])
+    return (1 / len(swarm)) * div
 
 
 class PSO:
@@ -26,10 +51,14 @@ class PSO:
             self.stop_global_update = 0
 
             self.func_name = ""
+            self.func = None
 
             self.error_rates = []
             self.evaluations = []
             self.iteration = 0
+
+        def run(self, num_runs: int = 0):
+            self._run_pso(num_runs=num_runs)
 
         def init_evaluation_array(self, num_runs):
             """
@@ -51,6 +80,11 @@ class PSO:
             self.evaluations[self.iteration, :] = array
 
         def set_eval_function(self, func_name: str):
+            """
+
+            :param func_name:
+            :return:
+            """
             assert func_name in eval_function
             self.func_name = func_name
             self.func = eval_function[func_name]
@@ -64,20 +98,8 @@ class PSO:
             self.start_global_update = int(start * num_runs)
             self.stop_global_update = int(end * num_runs)
 
-        def get_sd_of_ps(self, swarm: list) -> np.ndarray:
-            """
-
-            :param swarm:
-            :return:
-            """
-            assert type(swarm) is list
-            if len(self.swarm) == 0:
-                return np.array([0.0])
-            div = np.var([p.x for p in self.swarm])
-            return (1 / len(swarm)) * div
-
-        def run_pso(self,
-                    num_runs: int = 0):
+        def _run_pso(self,
+                     num_runs: int = 0):
             """
             :param target_array:
             :param create_vis:
@@ -178,10 +200,6 @@ class PSO:
                     """
                         EXTRAS: FOR NEXT ITERATION
                     """
-                    #  distance-based neighborhood
-                    # indices = get_cluster_particles(particle, 0.1, swarm)
-                    # for index in indices:
-                    #    swarm[index].x *= swarm[index].v*(-1)*r*ws[i]
 
                     # chaos for velocity.
                     if chaos_flag:
@@ -206,7 +224,7 @@ class PSO:
                     # here i would like to have some dynamics - but not at the
                     # beginning
                     if self.start_global_update < i < self.stop_global_update:
-                        div = self.get_sd_of_ps(self.swarm)
+                        div = swarm_sd(self.swarm)
                         if np.sum(div) < (self.n / 2) * 2:
                             chaos_flag = True
                             brake_flag = False
@@ -223,67 +241,6 @@ class PSO:
 
                 i += 1
             print(f"\nbest point ", best_global_point, "with solution {self.best_global_solution}."  )
-            # print('diversity of swarm:\t',np.sum(get_sd_of_ps(swarm)))
-
-        """
-            brute force methods to get particles in (measurable)
-            neighborhood. this is very cost-inefficient. hpso might be 
-            much better.
-        """
-        def too_narrow(self, p1: Particle,
-                       p2: Particle,
-                       radius: float) -> bool:
-            """
-            in radius?
-            :param p1:
-            :param p2:
-            :param radius:
-            :return:
-            """
-            if np.sum(np.abs(p1.x - p2.x)) <= radius:
-                return True
-            else:
-                return False
-
-        def get_cluster_particles(self, c_particle: Particle,
-                                  radius) -> list:
-            """
-
-            :param c_particle:
-            :param radius:
-            :param swarm:
-            :return:
-            """
-            if len(self.num_particles) == 0:
-                # should never happen.
-                return []
-            indices = []
-            for i, particle in zip(range(self.num_particles), self.swarm):
-                if c_particle is particle:
-                    continue
-
-                if self.too_narrow(c_particle, particle, radius):
-                    indices.append(i)
-            return indices
-
-        def get_n_neighbour_particles(self,
-                                      c_particle: Particle, n=3):
-            """
-            used to get n next particles-> get best solution for local winner
-            (TODO)
-            :param c_particle:
-            :param n:
-            :param swarm:
-            :return:
-            """
-            if self.num_particles== 0:
-                return
-            particle_dists = {}
-            for i, particle in zip(range(len(self.swarm)), self.swarm):
-                particle_dists[i] = np.sum(np.abs(c_particle.x - particle.x))
-            particle_dists = sorted(particle_dists.items(), key=operator.itemgetter(1))
-            ## TODO wie rum wird sortiert?
-            return particle_dists.keys()[:3]
 
     instance = None
 

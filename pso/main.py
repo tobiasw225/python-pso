@@ -17,20 +17,16 @@
 # Created by Tobias Wenzel in August 2017
 # Copyright (c) 2017 Tobias Wenzel
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import time
 
 from helper.background_function import *
 from vis.PSOVisualization import Particle2DVis
 
 from pso.common_pso import PSO
 from pso.hpso import HPSO
-
-import seaborn as sns
-import matplotlib.pyplot as plt
-import pandas as pd
-
-
-
-
 
 
 if __name__ == '__main__':
@@ -40,33 +36,28 @@ if __name__ == '__main__':
     dims = 2
     use_hpso = True
 
-    show_vis = True
+    show_vis = False
     func_name = 'rastrigin'
     n = 10
     show_error_vis = False
 
     if use_hpso:
-        hpso = HPSO(num_particles=num_particles,
-                    dims=dims,
-                    n=n)
-        hpso.set_eval_function(func_name=func_name)
-        print(hpso)
-
-        hpso.run_hpso(num_runs=num_runs)
-        hpso.print_hpso_best_solutions(hpso.tree.root)
-        errors = hpso.error_rates # actually best solutions
-        evaluation_steps = hpso.evaluations
+        pso = HPSO(num_particles=num_particles,
+                   dims=dims,
+                   n=n)
+        pso.weight_function = "decr"
 
     else:
         pso = PSO(num_particles=num_particles,
                   dims=dims,
                   n=n)
-        pso.set_eval_function(func_name)
-        print(pso)
         pso.set_global_update_frame(start=0.2, end=0.9, num_runs=num_runs)
-        pso.run_pso(num_runs=num_runs)
-        errors = pso.error_rates
-        evaluation_steps = pso.evaluations
+
+    pso.set_eval_function(func_name)
+    pso.run(num_runs)
+    pso.print_hpso_best_solutions(pso.tree.root) # todo
+    errors = pso.error_rates
+    evaluation_steps = pso.evaluations
 
     if show_error_vis:
         df = pd.DataFrame(list(zip(np.arange(len(errors)), errors)), columns=['error','iteration'])
@@ -75,10 +66,8 @@ if __name__ == '__main__':
 
     if show_vis:
         vis = Particle2DVis(n=n, num_runs=num_runs)
-        _, background_function = generate_2d_background(func_name, n)
+        background_function = generate_2d_background(func_name, n)
         vis.set_background_function(background_function)
-
-        import time
 
         for i in range(num_runs):
             # not stopping ?
