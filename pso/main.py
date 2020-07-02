@@ -31,10 +31,10 @@ from pso.hpso import HPSO
 
 if __name__ == '__main__':
 
-    num_particles = 33
+    num_particles = 5
     num_runs = 100
     dims = 2
-    use_hpso = True
+    use_hpso = False
 
     show_vis = False
     func_name = 'rastrigin'
@@ -55,7 +55,8 @@ if __name__ == '__main__':
 
     pso.set_eval_function(func_name)
     pso.run(num_runs)
-    pso.print_hpso_best_solutions(pso.tree.root) # todo
+    if use_hpso:
+        pso.print_hpso_best_solutions(pso.tree.root) # todo
     errors = pso.error_rates
     evaluation_steps = pso.evaluations
 

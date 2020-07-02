@@ -68,7 +68,6 @@ class HPSO(PSO):
         recursive function, that sets level weights according to method.
         decr. is default, meaning vHPSO.
 
-        :param node:
         :return:
         """
         if node:
@@ -121,15 +120,14 @@ class HPSO(PSO):
             for child in node.children:
                 self.update_lbest_recursive(child)
 
-    def particle_array(self, node: Node, array: list = []):
+    def particle_array(self, node: Node, array=None):
         """
         recursive function, that appends particles to the array, as it descends
         the tree.
 
-        :param node:
-        :param array:
-        :return:
         """
+        if array is None:
+            array = []
         if node:
             array.append(node.particle.best_solution)
             for child in node.children:
@@ -200,10 +198,6 @@ class HPSO(PSO):
                     break
 
     def print_hpso_best_solutions(self, node: Node):
-        """
-        :param: node
-        :return:
-        """
         if node:
             points = node.level*'\t'
             print("\t"+points+str(node.particle.best_solution))

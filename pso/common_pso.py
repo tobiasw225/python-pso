@@ -49,6 +49,7 @@ class PSO:
 
             self.start_global_update = 0
             self.stop_global_update = 0
+            self.v_brake = 0.0
 
             self.func_name = ""
             self.func = None
@@ -56,6 +57,17 @@ class PSO:
             self.error_rates = []
             self.evaluations = []
             self.iteration = 0
+            self.lowest_speed = 0.01
+            self.best_global_solution = sys.maxsize
+            self.best_global_point = np.zeros(self.dims)
+            self.max_vel = np.zeros(self.dims)
+            # add random speedup -> that's actually not random @todo
+            self.rand_speed_factor = self.dims ** 2
+            self.v_brake = self.n / (self.n / self.n * 2)  # to slow down the swarm
+
+
+            self.chaos_flag = False
+            self.brake_flag = False
 
         def run(self, num_runs: int = 0):
             self._run_pso(num_runs=num_runs)
@@ -98,13 +110,29 @@ class PSO:
             self.start_global_update = int(start * num_runs)
             self.stop_global_update = int(end * num_runs)
 
+        def update_velocity(self, particle: Particle, i: int):
+            r = np.random.ranf(self.dims)
+            particle.v = self.ws[i] * particle.v + r[0] * self.c1 \
+                         * (particle.best_point - particle.x)
+            if i > self.start_global_update:
+                # start global update not in the beginning, but after a
+                # set interval to increase diversity
+                particle.v += self.c2 * r[1] * (self.best_global_point - particle.x)
+            p_vel_abs = np.sum(np.abs(particle.v))
+            if p_vel_abs < self.lowest_speed:
+                # don't fall asleep...
+                particle.v *= r
+            # slow down particles and multiply for extra rand
+            if self.brake_flag:
+                particle.v = np.array([min(max(v, -self.v_brake),
+                                           self.v_brake) for v in particle.v] * r)
+            # update highest velocity
+            if np.sum(np.abs(self.max_vel)) < p_vel_abs:
+                self.max_vel = particle.v
+
         def _run_pso(self,
                      num_runs: int = 0):
             """
-            :param target_array:
-            :param create_vis:
-            :param show_error_vis:
-            :param show_2dvis:
             :param num_runs:
             :return:
             :description:
@@ -137,20 +165,9 @@ class PSO:
             arguments. For more information about the classes look at 'my_visualisation.py'
 
             """
+            div_tolerance = np.sqrt(self.n * self.dims)  # relativly arbitary
             self.init_evaluation_array(num_runs)
             self.ws = np.linspace(0.9, 0.4, num_runs)  # decreasing weights
-            # add random speedup -> that's actually not random @todo
-            rand_speed_factor = self.dims ** 2
-            v_brake = self.n / (self.n / self.n * 2)  # to slow down the swarm
-            div_flag = True
-            div_tolerance = np.sqrt(self.n * self.dims)  # relativly arbitary
-            lowest_speed = 0.01
-            self.best_global_solution = sys.maxsize
-            best_global_point = np.zeros(self.dims)
-            max_vel = np.zeros(self.dims)
-
-            chaos_flag = False
-            brake_flag = False
             i = 0
             while i < num_runs:
                 array = np.zeros((len(self.swarm), self.dims))
@@ -163,84 +180,54 @@ class PSO:
                         particle.best_point = particle.x
                     if f_n < self.best_global_solution:
                         self.best_global_solution = f_n
-                        best_global_point = particle.x
-                    """
-                        UPDATE: velocity
-                    """
-                    r = np.random.ranf(self.dims)
-                    particle.v = self.ws[i] * particle.v + r[0] * self.c1 \
-                                                           * (particle.best_point - particle.x)
-                    if i > self.start_global_update:
-                        # start global update not in the beginning, but after a
-                        # set interval to increase diversity
-                        particle.v += self.c2 * r[1] * (best_global_point - particle.x)
-                    p_vel_abs = np.sum(np.abs(particle.v))
-                    if p_vel_abs < lowest_speed:
-                        # don't fall asleep...
-                        particle.v *= r
+                        self.best_global_point = particle.x
 
-                    # slow down particles and multiply for extra rand
-                    if brake_flag:
-                        particle.v = np.array([min(max(v, -v_brake),
-                                                   v_brake) for v in particle.v] * r)
-
-                    # update highest velocity
-                    if np.sum(np.abs(max_vel)) < p_vel_abs :
-                        max_vel = particle.v
-                    """
-                        UPDATE: position
-                    """
-                    particle.x = particle.x + particle.v
-                    # set maximum (so particles can't escape area)
-                    for d in range(self.dims):
-                        particle.x[d] = min(max(particle.x[d], -self.n), self.n)
+                    self.update_velocity(particle, i)
+                    self.update_position(particle)
 
                     # add particle to vis-array
                     array[j] = particle.x
-                    """
-                        EXTRAS: FOR NEXT ITERATION
-                    """
-
-                    # chaos for velocity.
-                    if chaos_flag:
-                        r1 = np.random.ranf(self.dims)
-                        if np.sum(r1) < np.sum(particle.v):
-                            particle.v = r1 * particle.v * max_vel ** rand_speed_factor
-                            ri = np.random.randint(particle.dims)
-                            # constant factor to keep the chaos realistic
-                            particle.x[ri] = r1[0] * ((2 * self.n) - self.n) * self.ws[i] * 0.45
+                    if self.chaos_flag:
+                        self.chaos_for_velocity(particle, i)
                     j += 1
 
                 # append array for later animation
                 self.add_evaluation(array)
-
-                """
-                    CHECKS: Are done after every complete iteration.
-                """
-                # calculate diversity of particles
-                # comparison-values are picked rather arbitary
-                div = 0.0
-                if div_flag:
-                    # here i would like to have some dynamics - but not at the
-                    # beginning
-                    if self.start_global_update < i < self.stop_global_update:
-                        div = swarm_sd(self.swarm)
-                        if np.sum(div) < (self.n / 2) * 2:
-                            chaos_flag = True
-                            brake_flag = False
-                        else:
-                            chaos_flag = False
-                            brake_flag = True
-
                 self.error_rates.append(np.sqrt((self.optimum - self.best_global_solution) ** 2))
-
+                div = self.diversity_check(i)
                 if i > int(num_runs-(num_runs / 4)) and np.sum(div) < div_tolerance:
-                    # stop when it's very low.
-                    print('f\nstop at iteration {i} of planned {num_runs}.')
+                    print(f'\nstop at iteration {i} of planned {num_runs}.')
                     break
-
                 i += 1
-            print(f"\nbest point ", best_global_point, "with solution {self.best_global_solution}."  )
+            print(f"\nbest point {self.best_global_point} with solution {self.best_global_solution}."  )
+
+        def diversity_check(self, i: int) -> float:
+            # here i would like to have some dynamics - but not at the
+            # beginning
+            div = 0.0
+            if self.start_global_update < i < self.stop_global_update:
+                div = swarm_sd(self.swarm)
+                if np.sum(div) < (self.n / 2) * 2:
+                    self.chaos_flag = True
+                    self.brake_flag = False
+                else:
+                    self.chaos_flag = False
+                    self.brake_flag = True
+            return div
+
+        def chaos_for_velocity(self, particle, i):
+            r1 = np.random.ranf(self.dims)
+            if np.sum(r1) < np.sum(particle.v):
+                particle.v = r1 * particle.v * self.max_vel ** self.rand_speed_factor
+                ri = np.random.randint(particle.dims)
+                # constant factor to keep the chaos realistic
+                particle.x[ri] = r1[0] * ((2 * self.n) - self.n) * self.ws[i] * 0.45
+
+        def update_position(self, particle: Particle):
+            particle.x = particle.x + particle.v
+            # set maximum (so particles can't escape area)
+            for d in range(self.dims):
+                particle.x[d] = min(max(particle.x[d], -self.n), self.n)
 
     instance = None
 
