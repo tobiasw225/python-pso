@@ -35,51 +35,31 @@ class Tree:
                  height: int,
                  n: int,
                  dims: int,
-                 num_leafs: int):
+                 num_leaves: int):
         """
             Implementation of a tree for HPSO. Contains methods for
             inserting and creating nodes and swapping the particles.
-
-        :param num_children:
-        :param height:
-        :param n:
-        :param dims:
-        :param num_leafs:
         """
         self.num_children = num_children
         self.height = height
-        self.num_leafs = num_leafs
+        self.num_leaves = num_leaves
         self.n = n
         self.dims = dims
         self.root = None
+        self._num_leaves = 0
         self.make_hpso_tree()
 
-    def create_node(self, parent, level):
-        """
-
-        :param parent:
-        :param level:
-        :return:
-        """
-        return Node(parent,level,
+    def create_node(self, parent: Node = None, level: int = 0) -> Node:
+        return Node(parent, level,
                     self.n, self.dims)
 
     def make_hpso_tree(self):
-        """
-
-        :return:
-        """
-        self.root = self.insert(self.root)
-        for i in range(1, self.num_leafs):
+        self.root = self.create_node(parent=None, level=0)
+        for i in range(1, self.num_leaves):
             self.insert(self.root)
         self.swap_top_down_breadth_first(self.root)
 
-    def swap(self, node):
-        """
-
-        :param node:
-        :return:
-        """
+    def swap(self, node: Node):
         temp = node.particle
         for i in range(self.num_children):
             try:
@@ -92,32 +72,20 @@ class Tree:
             except IndexError:
                 break
 
-    def swap_top_down_breadth_first(self, node):
-        """
-        :return:
-        """
+    def swap_top_down_breadth_first(self, node: Node):
         if node:
             self.swap(node)
             for child in node.children:
                 self.swap_top_down_breadth_first(child)
 
-    def insert(self, node):
-        """
-        die insert-methode dient nur dem zufälligem
-        Aufbau des Baums. Das heißt hier braucht noch __nichts sortiert__!
-        werden.
-
-        :param node:
-        :param data:
-        :return:
-        """
-
-        if node is None:
-            return self.create_node(parent=node, level=0)
-
+    def insert(self, node: Node):
+        if (self._num_leaves + self.num_children) > self.num_leaves:
+            print(f"I'm only using {self._num_leaves}. Not-complete trees are not allowed here.")
+            return False
         if len(node.children) < self.num_children:
             node.children.append(self.create_node(parent=node,
                                                   level=node.level+1))
+            self._num_leaves += 1
             return node
 
         elif (len(node.children) == self.num_children)\
@@ -130,6 +98,7 @@ class Tree:
 
             if not inserted:
                 self.insert(node.parent)
+                self._num_leaves +=1
             else:
                 return node
         else:

@@ -1,4 +1,8 @@
 import numpy as np
+import json
+import logging
+import logging.config
+import os
 
 
 def singleton(c):
@@ -18,5 +22,20 @@ def singleton(c):
     return init
 
 
-def is_orthonomal(A):
-    return np.allclose(A @ A.T, np.eye(A.shape[0]))
+def get_my_logger(fout_name="", log_level=logging.INFO):
+    """
+
+    :param fout_name:
+    :param log_level:
+    :return:
+    """
+    log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logger = logging.getLogger(__name__)
+    logger.setLevel(log_level)
+    handler = logging.handlers.RotatingFileHandler(fout_name)
+    handler.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(log_format)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logging.basicConfig(level=log_level, format=log_format)
+    return logger

@@ -26,12 +26,11 @@ class HPSO(PSO):
         self.num_leafs = num_particles
         # calculate the number of children needed, if height= 3
         num_children = int(np.floor(-1/2 + np.sqrt(1/4+(num_particles-1))))
-
         super().__init__(num_particles=num_particles,
                          dims=dims, n=n)
         self.tree = Tree(num_children=num_children,
                          height=height,
-                         num_leafs=self.num_leafs,
+                         num_leaves=self.num_leafs,
                          n=n, dims=dims)
         self.max_weight = 0.729
         self.min_weight = 0.4
@@ -43,53 +42,36 @@ class HPSO(PSO):
 
     @weight_function.setter
     def weight_function(self, method: str):
-        """
-
-        :param methor:
-        :return:
-        """
-
         if method == 'decr':
             self._weight_function = self.weight_at_level_decr
         elif method == 'incr':
             self._weight_function = self.weight_at_level_incr
 
-    def weight_at_level_decr(self, level):
+    def weight_at_level_decr(self, level: int):
         return ((self.max_weight - self.min_weight) / self.tree.height) \
                * level + self.min_weight
 
-    def weight_at_level_incr(self, level):
+    def weight_at_level_incr(self, level: int):
         return ((self.min_weight - self.max_weight) / self.tree.height) \
                * level + self.max_weight
 
     def set_level_weights(self,
                           node: Node):
-        """
-        recursive function, that sets level weights according to method.
-        decr. is default, meaning vHPSO.
-
-        :return:
-        """
         if node:
             self.weight_function(node.level)
             for child in node.children:
                 self.set_level_weights(child)
 
-    def personal_best_recursive_update(self, node: Node):
-        """
-
-        :param node:
-        :return:
-        """
+    def personal_best_update(self, node: Node):
         if node:
             f_n = self.func(node.particle.x)
             if f_n < node.particle.best_solution:
                 if np.shape(node.particle.x):
                     node.particle.best_solution = f_n
             for child in node.children:
-                self.personal_best_recursive_update(child)
+                self.personal_best_update(child)
 
-    def update_lbest_recursive(self, node: Node):
+    def update_local_best(self, node: Node):
         """
         recursively updates nodes of the the. the root node with level == 0
         is only influenced by the global best point. the rest is influenced
@@ -118,7 +100,7 @@ class HPSO(PSO):
                     node.parent.particle.best_point - node.particle.x)
             node.particle.x = node.particle.x + node.particle.v
             for child in node.children:
-                self.update_lbest_recursive(child)
+                self.update_local_best(child)
 
     def particle_array(self, node: Node, array=None):
         """
@@ -176,13 +158,12 @@ class HPSO(PSO):
         :return:
         """
         self.init_evaluation_array(num_runs)
-
         div_tolerance = np.sqrt(self.n * self.dims)**2
 
         for i in range(num_runs):
-            self.personal_best_recursive_update(self.tree.root)
+            self.personal_best_update(self.tree.root)
             self.tree.swap_top_down_breadth_first(self.tree.root)
-            self.update_lbest_recursive(self.tree.root)  # vHPSO
+            self.update_local_best(self.tree.root)  # vHPSO
 
             array = np.zeros((self.num_particles, self.dims))
             self.tree.points_of_tree_particles(array)

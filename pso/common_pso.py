@@ -8,27 +8,15 @@
 #
 # Created by Tobias Wenzel in ~ August 2017
 # Copyright (c) 2017 Tobias Wenzel
-
+import os
 
 import numpy as np
 import sys
 from pso.particle import Particle
 from helper.constants import *
 from helper.eval_funcs import eval_function
-
-
-def swarm_sd(swarm: list) -> np.ndarray:
-    """
-
-    :param swarm:
-    :return:
-    """
-    assert type(swarm) is list
-    assert type(swarm[0]) is Particle
-    if len(swarm) == 0:
-        return np.array([0.0])
-    div = np.var([p.x for p in swarm])
-    return (1 / len(swarm)) * div
+from helper.util import get_my_logger
+from typing import List, Iterable, Tuple
 
 
 class PSO:
@@ -37,9 +25,10 @@ class PSO:
                      dims: int = 0,
                      n: int = 0):
 
+            self.logger = get_my_logger(os.path.join(__file__ + 'log'))
             self.num_particles = num_particles
             self.dims = dims
-            self.n = n # feldausdehnung
+            self.n = n
             self.swarm = [Particle(n, dims) for _ in range(num_particles)]
             self.optimum = 0.0
             self.error_thres = 0.0
@@ -64,13 +53,11 @@ class PSO:
             # add random speedup -> that's actually not random @todo
             self.rand_speed_factor = self.dims ** 2
             self.v_brake = self.n / (self.n / self.n * 2)  # to slow down the swarm
-
-
             self.chaos_flag = False
             self.brake_flag = False
 
-        def run(self, num_runs: int = 0):
-            self._run_pso(num_runs=num_runs)
+        def run(self, num_runs: int = 0, verbose: bool = True):
+            self._run_pso(num_runs=num_runs, verbose=verbose)
 
         def init_evaluation_array(self, num_runs):
             """
@@ -82,21 +69,10 @@ class PSO:
             self.evaluations = np.zeros((num_runs, self.num_particles, self.dims))
 
         def add_evaluation(self, array: np.ndarray):
-            """
-                add one iteration
-
-            :param array:
-            :return:
-            """
             self.iteration += 1
             self.evaluations[self.iteration, :] = array
 
         def set_eval_function(self, func_name: str):
-            """
-
-            :param func_name:
-            :return:
-            """
             assert func_name in eval_function
             self.func_name = func_name
             self.func = eval_function[func_name]
@@ -131,8 +107,10 @@ class PSO:
                 self.max_vel = particle.v
 
         def _run_pso(self,
-                     num_runs: int = 0):
+                     num_runs: int = 0,
+                     verbose: bool = False):
             """
+            :param verbose:
             :param num_runs:
             :return:
             :description:
@@ -164,6 +142,10 @@ class PSO:
             The visualisation objects have to be initialized in a main method and passed as
             arguments. For more information about the classes look at 'my_visualisation.py'
 
+            >>> pso = PSO(num_particles=5, dims=3, n=10)
+            >>> pso.set_global_update_frame(start=0.2, end=0.9, num_runs=20)
+            >>> pso.set_eval_function('rastrigin')
+            >>> pso.run(10)
             """
             div_tolerance = np.sqrt(self.n * self.dims)  # relativly arbitary
             self.init_evaluation_array(num_runs)
@@ -196,17 +178,17 @@ class PSO:
                 self.error_rates.append(np.sqrt((self.optimum - self.best_global_solution) ** 2))
                 div = self.diversity_check(i)
                 if i > int(num_runs-(num_runs / 4)) and np.sum(div) < div_tolerance:
-                    print(f'\nstop at iteration {i} of planned {num_runs}.')
+                    if verbose:
+                        self.logger.info(f'\nstop at iteration {i} of planned {num_runs}.')
                     break
                 i += 1
-            print(f"\nbest point {self.best_global_point} with solution {self.best_global_solution}."  )
+            if verbose:
+                self.logger.info(f"\nbest point {self.best_global_point} with solution {self.best_global_solution}."  )
 
         def diversity_check(self, i: int) -> float:
-            # here i would like to have some dynamics - but not at the
-            # beginning
             div = 0.0
             if self.start_global_update < i < self.stop_global_update:
-                div = swarm_sd(self.swarm)
+                div = self.sd()
                 if np.sum(div) < (self.n / 2) * 2:
                     self.chaos_flag = True
                     self.brake_flag = False
@@ -215,19 +197,25 @@ class PSO:
                     self.brake_flag = True
             return div
 
-        def chaos_for_velocity(self, particle, i):
+        def chaos_for_velocity(self, particle: Particle, i: int):
             r1 = np.random.ranf(self.dims)
             if np.sum(r1) < np.sum(particle.v):
-                particle.v = r1 * particle.v * self.max_vel ** self.rand_speed_factor
+                particle.v *= r1 * self.rand_speed_factor
                 ri = np.random.randint(particle.dims)
                 # constant factor to keep the chaos realistic
                 particle.x[ri] = r1[0] * ((2 * self.n) - self.n) * self.ws[i] * 0.45
 
         def update_position(self, particle: Particle):
-            particle.x = particle.x + particle.v
             # set maximum (so particles can't escape area)
+            particle.x = particle.x + particle.v
             for d in range(self.dims):
                 particle.x[d] = min(max(particle.x[d], -self.n), self.n)
+
+        def sd(self) -> np.ndarray:
+            if len(self.swarm) == 0:
+                return np.array([0.0])
+            div = np.var([p.x for p in self.swarm])
+            return (1 / len(self.swarm)) * div
 
     instance = None
 
