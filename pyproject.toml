@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "genetic_algorithm"
+authors =  ["Tobias Wenzel <atobiasw225@gmail.com>"]
+description = "Fun implementation of genetic algorithm"
+version = "0.0.1"
+readme = "README.md"
+packages = [{include = "genetic"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "8.1.1"
+numpy ="1.26.4"
+scipy = "1.13.1"

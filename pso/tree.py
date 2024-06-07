@@ -11,6 +11,7 @@
 
 from pso.particle import Particle
 
+
 class Node:
     def __init__(self, parent, level, n=10, dim=2):
         """
@@ -26,19 +27,16 @@ class Node:
         self.children = []
         self.parent = parent
         self.particle = Particle(n, dim)
-        self.weight = 1 # to adjust weight vHPSO, ^HPSO
+        self.weight = 1  # to adjust weight vHPSO, ^HPSO
 
 
 class Tree:
-    def __init__(self,
-                 num_children: int,
-                 height: int,
-                 n: int,
-                 dims: int,
-                 num_leaves: int):
+    def __init__(
+        self, num_children: int, height: int, n: int, dims: int, num_leaves: int
+    ):
         """
-            Implementation of a tree for HPSO. Contains methods for
-            inserting and creating nodes and swapping the particles.
+        Implementation of a tree for HPSO. Contains methods for
+        inserting and creating nodes and swapping the particles.
         """
         self.num_children = num_children
         self.height = height
@@ -50,8 +48,7 @@ class Tree:
         self.make_hpso_tree()
 
     def create_node(self, parent: Node = None, level: int = 0) -> Node:
-        return Node(parent, level,
-                    self.n, self.dims)
+        return Node(parent, level, self.n, self.dims)
 
     def make_hpso_tree(self):
         self.root = self.create_node(parent=None, level=0)
@@ -80,16 +77,18 @@ class Tree:
 
     def insert(self, node: Node):
         if (self._num_leaves + self.num_children) > self.num_leaves:
-            print(f"I'm only using {self._num_leaves}. Not-complete trees are not allowed here.")
+            print(
+                f"I'm only using {self._num_leaves}. Not-complete trees are not allowed here."
+            )
             return False
         if len(node.children) < self.num_children:
-            node.children.append(self.create_node(parent=node,
-                                                  level=node.level+1))
+            node.children.append(self.create_node(parent=node, level=node.level + 1))
             self._num_leaves += 1
             return node
 
-        elif (len(node.children) == self.num_children)\
-                and (node.level+1 < self.height):
+        elif (len(node.children) == self.num_children) and (
+            node.level + 1 < self.height
+        ):
             inserted = False
             for child in node.children:
                 if self.insert(child) is not False:
@@ -98,7 +97,7 @@ class Tree:
 
             if not inserted:
                 self.insert(node.parent)
-                self._num_leaves +=1
+                self._num_leaves += 1
             else:
                 return node
         else:

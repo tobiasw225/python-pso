@@ -11,27 +11,27 @@
 
 
 import numpy as np
+
 from pso.common_pso import PSO
-from pso.tree import *
-from helper.constants import *
+from pso.constants import colon_line, half_space_line
 from pso.particle import Particle
+from pso.tree import Node, Tree
 
 
 class HPSO(PSO):
-    def __init__(self,
-                 num_particles: int = 0,
-                 dims: int = 0,
-                 n: int = 0):
+    def __init__(self, num_particles: int = 0, dims: int = 0, n: int = 0):
         height = 3
         self.num_leafs = num_particles
         # calculate the number of children needed, if height= 3
-        num_children = int(np.floor(-1/2 + np.sqrt(1/4+(num_particles-1))))
-        super().__init__(num_particles=num_particles,
-                         dims=dims, n=n)
-        self.tree = Tree(num_children=num_children,
-                         height=height,
-                         num_leaves=self.num_leafs,
-                         n=n, dims=dims)
+        num_children = int(np.floor(-1 / 2 + np.sqrt(1 / 4 + (num_particles - 1))))
+        super().__init__(num_particles=num_particles, dims=dims, n=n)
+        self.tree = Tree(
+            num_children=num_children,
+            height=height,
+            num_leaves=self.num_leafs,
+            n=n,
+            dims=dims,
+        )
         self.max_weight = 0.729
         self.min_weight = 0.4
         self._weight_function = None
@@ -42,21 +42,22 @@ class HPSO(PSO):
 
     @weight_function.setter
     def weight_function(self, method: str):
-        if method == 'decr':
+        if method == "decr":
             self._weight_function = self.weight_at_level_decr
-        elif method == 'incr':
+        elif method == "incr":
             self._weight_function = self.weight_at_level_incr
 
     def weight_at_level_decr(self, level: int):
-        return ((self.max_weight - self.min_weight) / self.tree.height) \
-               * level + self.min_weight
+        return (
+            (self.max_weight - self.min_weight) / self.tree.height
+        ) * level + self.min_weight
 
     def weight_at_level_incr(self, level: int):
-        return ((self.min_weight - self.max_weight) / self.tree.height) \
-               * level + self.max_weight
+        return (
+            (self.min_weight - self.max_weight) / self.tree.height
+        ) * level + self.max_weight
 
-    def set_level_weights(self,
-                          node: Node):
+    def set_level_weights(self, node: Node):
         if node:
             self.weight_function(node.level)
             for child in node.children:
@@ -94,10 +95,12 @@ class HPSO(PSO):
                 # kann man auch in node schieben
                 weight = node.weight
             node.particle.v = weight * node.particle.v + r[0] * self.c1 * (
-                node.particle.best_point - node.particle.x)
+                node.particle.best_point - node.particle.x
+            )
             if node.level != 0:
-                node.particle.v += self.c2 * r[1] * (
-                    node.parent.particle.best_point - node.particle.x)
+                node.particle.v += (
+                    self.c2 * r[1] * (node.parent.particle.best_point - node.particle.x)
+                )
             node.particle.x = node.particle.x + node.particle.v
             for child in node.children:
                 self.update_local_best(child)
@@ -130,8 +133,7 @@ class HPSO(PSO):
     def run(self, num_runs: int = 100):
         self._run_hpso(num_runs=num_runs)
 
-    def _run_hpso(self,
-                  num_runs: int = 100):
+    def _run_hpso(self, num_runs: int = 100):
         """
         This is a basic implementation of the H-PSO-Algorithm. It's derived from PSO
         and has a tree-object. I figure this can be done way more elegantly, but then again:
@@ -158,7 +160,7 @@ class HPSO(PSO):
         :return:
         """
         self.init_evaluation_array(num_runs)
-        div_tolerance = np.sqrt(self.n * self.dims)**2
+        div_tolerance = np.sqrt(self.n * self.dims) ** 2
 
         for i in range(num_runs):
             self.personal_best_update(self.tree.root)
@@ -171,22 +173,22 @@ class HPSO(PSO):
 
             self.error_rates.append(self.tree.root.particle.best_solution)
 
-            if i > int(num_runs-(num_runs / 2)):
+            if i > int(num_runs - (num_runs / 2)):
                 div = self.swarm_sd()
                 if np.sum(div) < div_tolerance:
                     # stop when it's very low.
-                    print(f'\nstop at iteration {i} of planned {num_runs}.')
+                    print(f"\nstop at iteration {i} of planned {num_runs}.")
                     break
 
     def print_hpso_best_solutions(self, node: Node):
         if node:
-            points = node.level*'\t'
-            print("\t"+points+str(node.particle.best_solution))
+            points = node.level * "\t"
+            print("\t" + points + str(node.particle.best_solution))
             for child in node.children:
                 self.print_hpso_best_solutions(child)
 
     def update_ph_pso(self, node: Node):
-        """"
+        """ "
         todo
 
         ph-pso: reset leafs, randomize local-best
@@ -202,8 +204,7 @@ class HPSO(PSO):
                 # 're-randomizing', could be not enough.
                 node.particle.x *= 0.479 * r
             elif node.level == 3:
-                node.particle = Particle(n=self.tree.n,
-                                         dims=self.tree.dims)
+                node.particle = Particle(n=self.tree.n, dims=self.tree.dims)
             else:
                 return
             for child in node.children:
@@ -211,11 +212,11 @@ class HPSO(PSO):
 
     def __str__(self):
         res = ""
-        res += colon_line+"\n"+ half_space_line+"H-PSO\n"+colon_line+"\n"
-        res += "number of particles \t"+str(self.num_particles)+"\n"
-        res += "height \t"+ str(self.tree.height) +"\n"
-        res += "num children \t"+str(self.tree.num_children)+"\n"
-        res += "dims \t"+str(self.dims) +"\n"
-        res += "n\t"+ str(self.n) +"\n"
-        res += "function name\t"+self.func_name
+        res += colon_line + "\n" + half_space_line + "H-PSO\n" + colon_line + "\n"
+        res += "number of particles \t" + str(self.num_particles) + "\n"
+        res += "height \t" + str(self.tree.height) + "\n"
+        res += "num children \t" + str(self.tree.num_children) + "\n"
+        res += "dims \t" + str(self.dims) + "\n"
+        res += "n\t" + str(self.n) + "\n"
+        res += "function name\t" + self.func_name
         return res
