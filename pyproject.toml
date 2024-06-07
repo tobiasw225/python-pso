@@ -1,13 +1,12 @@
 [tool.poetry]
-name = "genetic_algorithm"
+name = "particle swarm optimizer"
 authors =  ["Tobias Wenzel <atobiasw225@gmail.com>"]
-description = "Fun implementation of genetic algorithm"
+description = "Fun implementation of pso algorithms"
 version = "0.0.1"
 readme = "README.md"
-packages = [{include = "genetic"}]
+packages = [{include = "pso"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 pytest = "8.1.1"
-numpy ="1.26.4"
-scipy = "1.13.1"
+seaborn = "0.13.2"
