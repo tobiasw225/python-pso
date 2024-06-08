@@ -7,11 +7,6 @@
 # see personal_best_particles_update
 #
 # __todos__:
-"""
-@todo constrainsts cf. pso (field-constraints?)
-(@todo PH-HPSO)
-"""
-
 #
 # Created by Tobias Wenzel in August 2017
 # Copyright (c) 2017 Tobias Wenzel
