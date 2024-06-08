@@ -9,23 +9,21 @@
 # Created by Tobias Wenzel in ~ August 2017
 # Copyright (c) 2017 Tobias Wenzel
 import os
+import sys
 
 import numpy as np
-import sys
+
+from pso.constants import colon_line, half_space_line
+from pso.eval_funcs import eval_function
 from pso.particle import Particle
-from helper.constants import *
-from helper.eval_funcs import eval_function
-from helper.util import get_my_logger
-from typing import List, Iterable, Tuple
+from pso.util import get_my_logger
 
 
 class PSO:
     class __PSO:
-        def __init__(self, num_particles: int = 0,
-                     dims: int = 0,
-                     n: int = 0):
-
-            self.logger = get_my_logger(os.path.join(__file__ + 'log'))
+        def __init__(self, num_particles: int = 0, dims: int = 0, n: int = 0):
+            # todo better file location and also log in other implementations
+            self.logger = get_my_logger(os.path.join(__file__ + "log"))
             self.num_particles = num_particles
             self.dims = dims
             self.n = n
@@ -51,7 +49,7 @@ class PSO:
             self.best_global_point = np.zeros(self.dims)
             self.max_vel = np.zeros(self.dims)
             # add random speedup -> that's actually not random @todo
-            self.rand_speed_factor = self.dims ** 2
+            self.rand_speed_factor = self.dims**2
             self.v_brake = self.n / (self.n / self.n * 2)  # to slow down the swarm
             self.chaos_flag = False
             self.brake_flag = False
@@ -77,9 +75,9 @@ class PSO:
             self.func_name = func_name
             self.func = eval_function[func_name]
 
-        def set_global_update_frame(self, start: float = 0.4,
-                                    end: float = 0.8,
-                                    num_runs: int = 0):
+        def set_global_update_frame(
+            self, start: float = 0.4, end: float = 0.8, num_runs: int = 0
+        ):
             """
             first+last iteration of global update
             """
@@ -88,8 +86,9 @@ class PSO:
 
         def update_velocity(self, particle: Particle, i: int):
             r = np.random.ranf(self.dims)
-            particle.v = self.ws[i] * particle.v + r[0] * self.c1 \
-                         * (particle.best_point - particle.x)
+            particle.v = self.ws[i] * particle.v + r[0] * self.c1 * (
+                particle.best_point - particle.x
+            )
             if i > self.start_global_update:
                 # start global update not in the beginning, but after a
                 # set interval to increase diversity
@@ -100,15 +99,14 @@ class PSO:
                 particle.v *= r
             # slow down particles and multiply for extra rand
             if self.brake_flag:
-                particle.v = np.array([min(max(v, -self.v_brake),
-                                           self.v_brake) for v in particle.v] * r)
+                particle.v = np.array(
+                    [min(max(v, -self.v_brake), self.v_brake) for v in particle.v] * r
+                )
             # update highest velocity
             if np.sum(np.abs(self.max_vel)) < p_vel_abs:
                 self.max_vel = particle.v
 
-        def _run_pso(self,
-                     num_runs: int = 0,
-                     verbose: bool = False):
+        def _run_pso(self, num_runs: int = 0, verbose: bool = False):
             """
             :param verbose:
             :param num_runs:
@@ -175,15 +173,21 @@ class PSO:
 
                 # append array for later animation
                 self.add_evaluation(array)
-                self.error_rates.append(np.sqrt((self.optimum - self.best_global_solution) ** 2))
+                self.error_rates.append(
+                    np.sqrt((self.optimum - self.best_global_solution) ** 2)
+                )
                 div = self.diversity_check(i)
-                if i > int(num_runs-(num_runs / 4)) and np.sum(div) < div_tolerance:
+                if i > int(num_runs - (num_runs / 4)) and np.sum(div) < div_tolerance:
                     if verbose:
-                        self.logger.info(f'\nstop at iteration {i} of planned {num_runs}.')
+                        self.logger.info(
+                            f"\nstop at iteration {i} of planned {num_runs}."
+                        )
                     break
                 i += 1
             if verbose:
-                self.logger.info(f"\nbest point {self.best_global_point} with solution {self.best_global_solution}."  )
+                self.logger.info(
+                    f"\nbest point {self.best_global_point} with solution {self.best_global_solution}."
+                )
 
         def diversity_check(self, i: int) -> float:
             div = 0.0
@@ -228,8 +232,8 @@ class PSO:
 
     def __str__(self):
         res = ""
-        res += colon_line+"\n"+ half_space_line+"PSO\n"+colon_line+"\n"
-        res += "number of particles \t"+str(self.num_particles)+"\n"
-        res += "dims \t"+str(self.dims) + "\n"
+        res += colon_line + "\n" + half_space_line + "PSO\n" + colon_line + "\n"
+        res += "number of particles \t" + str(self.num_particles) + "\n"
+        res += "dims \t" + str(self.dims) + "\n"
         res += "n\t" + str(self.n)
         return res

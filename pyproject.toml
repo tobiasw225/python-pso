@@ -1,0 +1,12 @@
+[tool.poetry]
+name = "particle swarm optimizer"
+authors =  ["Tobias Wenzel <atobiasw225@gmail.com>"]
+description = "Fun implementation of pso algorithms"
+version = "0.0.1"
+readme = "README.md"
+packages = [{include = "pso"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "8.1.1"
+seaborn = "0.13.2"

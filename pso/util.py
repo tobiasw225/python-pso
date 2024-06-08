@@ -1,8 +1,5 @@
-import numpy as np
-import json
 import logging
 import logging.config
-import os
 
 
 def singleton(c):
@@ -19,6 +16,7 @@ def singleton(c):
         if not instance:
             instance = c(*args, **kwargs)
         return instance
+
     return init
 
 

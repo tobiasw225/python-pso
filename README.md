@@ -10,15 +10,20 @@ Depending on your capabilities and interests you have different options from her
 
 + Read some [papers](#Relevant-literature) and dive into the concepts of PSO and H-PSO.
 + Skim over the summaries of [PSO](#PSO) or/ and  [H-PSO](#H-PSO) and have a look at the implementations. Feel free to comment ;)
-+ Navigate to the [PSO tutorial](pso/pso.ipynb). I prepared a Jupyter Notebook to illustrate a simple and more efficient version of the algorithm. You should be rather familiar with numpy to understand the code.
++ Navigate to the [PSO tutorial](pso.ipynb). I prepared a Jupyter Notebook to illustrate a simple and more efficient version of the algorithm. You should be rather familiar with numpy to understand the code.
 
-## Prerequisites
+## Installation
 
 ```
-pip install numpy
-pip install matplotlib
+$ git clone git@github.com:tobiasw225/python-pso.git
+$ python3.11 -m venv venv
+$ source venv/bin/activate
+$ pip install poetry
+$ poetry install
 ```
 
+[main.py](main.py) offers an entry point to play around. 
+To plot the solutions, you need to install matplotlib.
 
 ## PSO
 
