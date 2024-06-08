@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/../nature_inspired/.idea/nature_inspired.iml" filepath="$PROJECT_DIR$/../nature_inspired/.idea/nature_inspired.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/python-pso.iml" filepath="$PROJECT_DIR$/.idea/python-pso.iml" />
-    </modules>
-  </component>
-</project>
